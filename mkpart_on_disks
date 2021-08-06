@@ -1,0 +1,15 @@
+#!/bin/bash
+
+
+DISKS=$( lsblk -n -i -o NAME -d  )
+
+for disk in $DISKS;
+do
+  if [ "$disk" != "sda" ]; then
+
+  echo $disk
+  parted -s /dev/$disk mklabel msdos
+  parted -s -a optimal /dev/$disk mkpart primary 0% 100%
+
+  fi
+done
