@@ -7,9 +7,29 @@ for disk in $DISKS;
 do
   if [ "$disk" != "sda" ]; then
 
-  echo $disk
-  parted -s /dev/$disk mklabel msdos
-  parted -s -a optimal /dev/$disk mkpart primary 0% 100%
+  echo -n "Make partition on $disk"
+  parted -s /dev/${disk} mklabel gpt
+  parted -s -a optimal /dev/${disk} mkpart DATA ext4 0% 100%
+  echo ". Done!"
 
   fi
+done
+
+PARTS=$( lsblk -r -n | grep -v sda | grep part | cut -d " " -f1  )
+COUNT_P=1
+
+
+for part in $PARTS;
+do
+
+  DEV_PATH="/dev/${part}"
+  echo $part
+  mkfs.ext4 ${DEV_PATH}
+  mkdir -p /hdfs/DATA${COUNT_P}
+  mount -o noatime ${DEV_PATH} /hdfs/DATA${COUNT_P}
+  P_UUID=$( lsblk ${DEV_PATH} -n -l -o NAME,UUID,TYPE | awk '{ print $2 }' )
+  echo "UUID=${P_UUID} /hdfs/DATA${COUNT_P}  ext4     defaults,noatime        0 0" >> fstab
+
+  (( COUNT_P=COUNT_P+1 ))
+
 done
