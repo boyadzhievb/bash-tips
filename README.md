@@ -3,7 +3,7 @@
 id.id.ip 10.101.10.10
 
 
-IFS=$'\n'; for lin1 in $(cat posleden_vals); do min_id=$(echo "$lin1"| cut -d " " -f1); ip1=$(echo "$lin1"| cut -d " " -f2);  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_maas2 maas@$ip1 "sudo sed -i 's/^id\:.*/id\: $min_id/g' /bigdisk0/salt/etc/minion" ; do
+IFS=$'\n'; for lin1 in $(cat posleden_vals); do min_id=$(echo "$lin1"| cut -d " " -f1); ip1=$(echo "$lin1"| cut -d " " -f2);  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_maas2 maas@$ip1 "sudo sed -i 's/^id\:.*/id\: $min_id/g' /etc/salt/etc/minion" ; do
 
 
 
