@@ -15,6 +15,6 @@ Script creates a partition on  the whole disk, format it in ext4, make mount poi
 
 Audit_serv
 
-Run commands on list of servers and collets output in files
+Run commands on list of servers and collects output in files
 
 
