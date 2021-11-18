@@ -13,5 +13,8 @@ Mkpart script
 Script creates a partition on  the whole disk, format it in ext4, make mount point , mount disk and adds a row for it in etc fstab
 
 
+Audit_serv
+
+Run commands on list of servers and collets output in files
 
 
