@@ -1,0 +1,28 @@
+SLIST="192.168.1.1 192.168.1.3"
+
+COMAND_LIST=(
+"uname -a"
+"sudo cat /etc/login.defs"
+"sudo cat /etc/pam.d/system-auth"
+"sudo cat /etc/passwd"
+"sudo cat /etc/group"
+"sudo cat /etc/sudoers"
+)
+
+
+for serv in $SLIST; do
+echo $serv;
+
+echo $serv >> $serv.txt ;
+date >> $serv.txt;
+
+  for COMMANDO1 in "${COMAND_LIST[@]}"; do
+  echo "$COMMANDO1"
+
+  echo  >> $serv.txt;
+  echo "#########################################################################################################"  >> $serv.txt;
+  echo "$COMMANDO1" >> $serv.txt;
+  ssh  -o StrictHostKeyChecking=no $serv "$COMMANDO1" >> $serv.txt ;
+
+done #COMANDO1
+done
